@@ -6,5 +6,17 @@ var bits = 0
 $('#clickBox').click(function () {
     //every click we add a bit and update the score span to reflect the new info
     bits += 1;
-    $('#score').text('Bits: '+bits); 
+    $('#score').text(calcScoreText(bits)); 
 })
+
+function calcScoreText(score) {
+    var scoreText = '';
+    if (score < 8) {
+        scoreText = 'Bits: '+score;
+    } else if (score >= 8 && score < 8192) {
+        scoreText = 'Bytes: '+(score/8);
+    } else if (score >= 8192 && score < 8388608) {
+        scoreText = 'Kilobytes: '+(score/8000);
+    }
+    return scoreText;
+}

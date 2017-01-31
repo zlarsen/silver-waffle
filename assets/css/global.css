@@ -8,5 +8,5 @@ hr {border: none; border-bottom: 1px solid #ddd; }
 .clear {clear:both;}
 #mainContent {width: 600px; margin: 0 auto; background-color: #eee; text-align: center;}
 
-#clickBox {width: 200px; height: 200px; background-color: #333; cursor: pointer; margin: auto;}
+#clickBox {width: 200px; height: 200px; cursor: pointer; margin: auto; background-image: url('../../assets/images/powerButton.png'); background-size:200px 200px;}
 #score {font-size: 2em;}
