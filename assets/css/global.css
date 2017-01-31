@@ -1,0 +1,12 @@
+html {min-height:100%; position:relative;}
+body {height:100%; background-color:#fafafa; padding:0px; margin:0px;font-family: 'Source Sans Pro', sans-serif;}
+a {color:#303544; cursor:pointer; text-decoration:none;}
+a:hover {color:#000;}
+hr {border: none; border-bottom: 1px solid #ddd; }
+
+.siteWrap {position:absolute; width:100%; height:100%; }
+.clear {clear:both;}
+
+
+#clickBox {width: 200px; height: 200px;  background-color: #333; cursor: pointer;}
+#score {}
