@@ -10,3 +10,33 @@ hr {border: none; border-bottom: 1px solid #ddd; }
 
 #clickBox {width: 200px; height: 200px; cursor: pointer; margin: auto; background-image: url('../../assets/images/powerButton.png'); background-size:200px 200px;}
 #score {font-size: 2em;}
+.btn { white-space:nowrap; display:inline-block; transition:all 0.3s; cursor:pointer; padding: 8px 22px; border-radius: 3px; background-color:#5080b3; border:none; border-bottom:2px solid #375779; font-size: .8em; color: #fff; box-sizing:border-box;text-align:center; }
+.btn:hover, .btn.open {background-color:#3b6694; outline:none; color:#fff;}
+.btn:focus {outline:none;}
+
+.btn.greyBtn {background-color:#aaa; border-bottom:2px solid #999;}
+.btn.greyBtn:hover, .greyBtn.open {background-color:#999; border-bottom:2px solid #777;} 
+.btn.redBtn {background-color:#a00; border-bottom:2px solid #700;}
+.btn.redBtn:hover, .redBtn.open {background-color:#800; border-bottom:2px solid #500;}
+.btn.whiteBtn {background-color:#fff; border: 1px solid #eee; color:#000; }
+.btn.whiteBtn:hover, .whiteBtn.open {background-color:#f2f2f2; color:#000; }
+.btn.greenBtn {background-color:#50b36f; border-bottom:2px solid #24753e;}
+.btn.greenBtn:hover {background-color:#2b8247;}
+.btn.tealBtn {background-color:#3ddca3; border-bottom: 2px solid #149266}
+.btn.tealBtn:hover {background-color: #29bf8a}
+.btn.orangeBtn {background-color:#d6853d; border-bottom: 2px solid #c1732e}
+.btn.orangeBtn:hover {background-color: #824713}
+.btn.lightBlueBtn {background-color:#3d99dc; border-bottom: 2px solid #165d90}
+.btn.lightBlueBtn:hover {background-color:#2b81bf}
+.btn.lightRedBtn {background-color:#ef5e5e; border-bottom: 2px solid #9c2727}
+.btn.lightRedBtn:hover {background-color: #ce4545}
+
+.btn.miniBtn {font-size:.7em; padding:4px 11px;}
+.btn.largeBtn {font-size:1.2em;}
+
+.btn.disabled {background-color:#ccc; border-bottom:2px solid #999; cursor:not-allowed;}
+.btn.success {background-color:#50b36f; border-color: #37793e;}
+.btn.error {background-color:#c74242; border-color: #793737}
+
+#save {display:inline-block;}
+#deleteSave {display:inline-block;}
