@@ -1,5 +1,6 @@
 var bits = 0;
 var cursors = 0;
+var keyboards = 0;
 var mouseBooster = 1;
 
 //this jQuery function looks for the div identified by the #clickBox id and waits for a click on it. Known as a click handler.
@@ -11,6 +12,10 @@ $('#clickBox').click(function () {
 
 $('.buyCursorBtn').click(function () {
     buyCursor();
+});
+
+$('.buyKeyboardBtn').click(function () {
+    buyKeyboard();
 });
 
 $('.buyMouseBoosterBtn').click(function () {
@@ -66,15 +71,27 @@ function buyCursor(){
     $('#cursorsCost').text('Cursor Price: '+formatBytes(nextCost/8));  //updates the cursor cost for the user
 };
 
+function buyKeyboard(){
+    var keyboardCost = Math.floor(80 * Math.pow(1.4,keyboards));     //works out the cost of this keyboard
+    if(bits >= keyboardCost){                                   //checks that the player can afford the keyboard
+        keyboards = keyboards + 1;                                   //increases number of keyboards
+        bits = bits - keyboardCost;                          //removes the bits spent
+        $('#keyboards').text('keyboards: '+keyboards);//updates the number of keyboards for the user
+        $('#score').text(calcAndSaveScore(bits));   //updates the number of cookies for the user
+    };
+    var nextCost = Math.floor(80 * Math.pow(1.4,keyboards));       //works out the cost of the next keyboard
+    $('#keyboardsCost').text('Keyboard Price: '+formatBytes(nextCost/8));  //updates the keyboard cost for the user
+};
+
 function buyMouseBooster(){
-    var mouseBoosterCost = Math.floor(10 * Math.pow(1.1,mouseBooster));     //works out the cost of this mouseBooster
+    var mouseBoosterCost = Math.floor(20 * Math.pow(1.1,mouseBooster));     //works out the cost of this mouseBooster
     if(bits >= mouseBoosterCost){                                   //checks that the player can afford the mouseBooster
         mouseBooster = mouseBooster + 1;                                   //increases number of mouseBooster
         bits = bits - mouseBoosterCost;                          //removes the bits spent
         $('#mouseBooster').text('Mouse Booster: '+mouseBooster);//updates the number of mouseBooster for the user
         $('#score').text(calcAndSaveScore(bits));   //updates the number of cookies for the user
     };
-    var costOfNext = Math.floor(10 * Math.pow(1.1,mouseBooster));       //works out the cost of the next mouseBooster
+    var costOfNext = Math.floor(20 * Math.pow(1.1,mouseBooster));       //works out the cost of the next mouseBooster
     $('#mouseBoosterCost').text('Mouse Booster Price: '+formatBytes(costOfNext/8));  //updates the mouseBooster cost for the user
 };
 
@@ -89,6 +106,7 @@ function load() {
     if (savegame) {
         if (typeof savegame.bits !== "undefined") bits = savegame.bits;
         if (typeof savegame.cursors !== "undefined") cursors = savegame.cursors;
+        if (typeof savegame.keyboards !== "undefined") keyboards = savegame.keyboards;
         if (typeof savegame.mouseBooster !== "undefined") mouseBooster = savegame.mouseBooster;
     }
 }
@@ -97,6 +115,7 @@ function save() {
     var save = {
         bits: bits,
         cursors: cursors,
+        keyboards: keyboards,
         mouseBooster: mouseBooster,
     }
     localStorage.setItem("save",JSON.stringify(save));
@@ -109,14 +128,18 @@ function deleteSave() {
 $(document).ready(function() {
     load();
     var nextCursorCost = Math.floor(10 * Math.pow(1.1,cursors));
-    var nextmouseBoosterCost = Math.floor(10 * Math.pow(1.1,mouseBooster));
+    var nextMouseBoosterCost = Math.floor(20 * Math.pow(1.1,mouseBooster));
+    var nextKeyboardCost = Math.floor(80 * Math.pow(1.4,keyboards));       //works out the cost of the next keyboard
     $('#score').text(calcAndSaveScore(bits));
     $('#cursors').text('Cursors: '+cursors);
+    $('#keyboards').text('Keyboards: '+keyboards);
     $('#mouseBooster').text('Mouse Booster: '+mouseBooster);
-    $('#mouseBoosterCost').text('Mouse Booster Price: '+formatBytes(nextmouseBoosterCost/8));
+    $('#mouseBoosterCost').text('Mouse Booster Price: '+formatBytes(nextMouseBoosterCost/8));
+    $('#keyboardsCost').text('Keyboard Price: '+formatBytes(nextKeyboardCost/8));
     $('#cursorsCost').text('Cursor Price: '+formatBytes(nextCursorCost/8));
 });
 
 var gameLoop = setInterval(function() {
     bitClick(cursors, 1);
+    bitClick(keyboards, 4);
 }, 1000);
