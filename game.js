@@ -89,6 +89,7 @@ function load() {
     if (savegame) {
         if (typeof savegame.bits !== "undefined") bits = savegame.bits;
         if (typeof savegame.cursors !== "undefined") cursors = savegame.cursors;
+        if (typeof savegame.gainClicks !== "undefined") gainClicks = savegame.gainClicks;
     }
 }
 
