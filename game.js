@@ -1,15 +1,20 @@
 var bits = 0;
 var cursors = 0;
+var gainClicks = 1;
 
 //this jQuery function looks for the div identified by the #clickBox id and waits for a click on it. Known as a click handler.
 $('#clickBox').click(function () {
     
     //every click we add a bit and update the score span to reflect the new info
-    bitClick(1);
+    bitClick(1, gainClicks);
 });
 
-$('.buyCursor').click(function () {
+$('.buyCursorBtn').click(function () {
     buyCursor();
+});
+
+$('.buyGainClickBtn').click(function () {
+    buyGainClick();
 });
 
 $('#save').click(function () {
@@ -20,8 +25,8 @@ $('#deleteSave').click(function () {
     deleteSave();
 });
 
-function bitClick(number){
-    bits = bits + number;
+function bitClick(number, multiplier){
+    bits = bits + (number * multiplier);
     $('#score').text(calcAndSaveScore(bits)); 
 };
 
@@ -61,6 +66,24 @@ function buyCursor(){
     $('#cursorsCost').text('Cursor Price: '+formatBytes(nextCost/8));  //updates the cursor cost for the user
 };
 
+function buyGainClick(){
+    var gainClickCost = Math.floor(10 * Math.pow(1.1,gainClicks));     //works out the cost of this gainClick
+    if(bits >= gainClickCost){                                   //checks that the player can afford the gainClick
+        gainClicks = gainClicks + 1;                                   //increases number of gainClicks
+        bits = bits - gainClickCost;                          //removes the bits spent
+        $('#gainClicks').text('gainClicks: '+gainClicks);//updates the number of gainClicks for the user
+        $('#score').text(calcAndSaveScore(bits));   //updates the number of cookies for the user
+    };
+    var costOfNext = Math.floor(10 * Math.pow(1.1,gainClicks));       //works out the cost of the next gainClick
+    $('#gainClicksCost').text('gainClick Price: '+formatBytes(costOfNext/8));  //updates the gainClick cost for the user
+};
+
+
+function prettify(input){
+    var output = Math.round(input * 1000000)/1000000;
+    return output;
+}
+
 function load() {
     var savegame = JSON.parse(localStorage.getItem("save"));
     if (savegame) {
@@ -73,6 +96,7 @@ function save() {
     var save = {
         bits: bits,
         cursors: cursors,
+        gainClicks: gainClicks,
     }
     localStorage.setItem("save",JSON.stringify(save));
 }
@@ -84,11 +108,14 @@ function deleteSave() {
 $(document).ready(function() {
     load();
     var nextCursorCost = Math.floor(10 * Math.pow(1.1,cursors));
+    var nextGainClicksCost = Math.floor(10 * Math.pow(1.1,gainClicks));
     $('#score').text(calcAndSaveScore(bits));
     $('#cursors').text('Cursors: '+cursors);
+    $('#gainClicks').text('Gain Clicks: '+gainClicks);
+    $('#gainClicksCost').text('Gain Clicks Price: '+formatBytes(nextGainClicksCost/8));
     $('#cursorsCost').text('Cursor Price: '+formatBytes(nextCursorCost/8));
 });
 
 var gameLoop = setInterval(function() {
-    bitClick(cursors);
+    bitClick(cursors, 1);
 }, 1000);
