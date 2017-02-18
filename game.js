@@ -1,20 +1,20 @@
 var bits = 0;
 var cursors = 0;
-var gainClicks = 1;
+var mouseBooster = 1;
 
 //this jQuery function looks for the div identified by the #clickBox id and waits for a click on it. Known as a click handler.
 $('#clickBox').click(function () {
     
     //every click we add a bit and update the score span to reflect the new info
-    bitClick(1, gainClicks);
+    bitClick(1, mouseBooster);
 });
 
 $('.buyCursorBtn').click(function () {
     buyCursor();
 });
 
-$('.buyGainClickBtn').click(function () {
-    buyGainClick();
+$('.buyMouseBoosterBtn').click(function () {
+    buyMouseBooster();
 });
 
 $('#save').click(function () {
@@ -66,16 +66,16 @@ function buyCursor(){
     $('#cursorsCost').text('Cursor Price: '+formatBytes(nextCost/8));  //updates the cursor cost for the user
 };
 
-function buyGainClick(){
-    var gainClickCost = Math.floor(10 * Math.pow(1.1,gainClicks));     //works out the cost of this gainClick
-    if(bits >= gainClickCost){                                   //checks that the player can afford the gainClick
-        gainClicks = gainClicks + 1;                                   //increases number of gainClicks
-        bits = bits - gainClickCost;                          //removes the bits spent
-        $('#gainClicks').text('gainClicks: '+gainClicks);//updates the number of gainClicks for the user
+function buyMouseBooster(){
+    var mouseBoosterCost = Math.floor(10 * Math.pow(1.1,mouseBooster));     //works out the cost of this mouseBooster
+    if(bits >= mouseBoosterCost){                                   //checks that the player can afford the mouseBooster
+        mouseBooster = mouseBooster + 1;                                   //increases number of mouseBooster
+        bits = bits - mouseBoosterCost;                          //removes the bits spent
+        $('#mouseBooster').text('Mouse Booster: '+mouseBooster);//updates the number of mouseBooster for the user
         $('#score').text(calcAndSaveScore(bits));   //updates the number of cookies for the user
     };
-    var costOfNext = Math.floor(10 * Math.pow(1.1,gainClicks));       //works out the cost of the next gainClick
-    $('#gainClicksCost').text('gainClick Price: '+formatBytes(costOfNext/8));  //updates the gainClick cost for the user
+    var costOfNext = Math.floor(10 * Math.pow(1.1,mouseBooster));       //works out the cost of the next mouseBooster
+    $('#mouseBoosterCost').text('Mouse Booster Price: '+formatBytes(costOfNext/8));  //updates the mouseBooster cost for the user
 };
 
 
@@ -89,7 +89,7 @@ function load() {
     if (savegame) {
         if (typeof savegame.bits !== "undefined") bits = savegame.bits;
         if (typeof savegame.cursors !== "undefined") cursors = savegame.cursors;
-        if (typeof savegame.gainClicks !== "undefined") gainClicks = savegame.gainClicks;
+        if (typeof savegame.mouseBooster !== "undefined") mouseBooster = savegame.mouseBooster;
     }
 }
 
@@ -97,7 +97,7 @@ function save() {
     var save = {
         bits: bits,
         cursors: cursors,
-        gainClicks: gainClicks,
+        mouseBooster: mouseBooster,
     }
     localStorage.setItem("save",JSON.stringify(save));
 }
@@ -109,11 +109,11 @@ function deleteSave() {
 $(document).ready(function() {
     load();
     var nextCursorCost = Math.floor(10 * Math.pow(1.1,cursors));
-    var nextGainClicksCost = Math.floor(10 * Math.pow(1.1,gainClicks));
+    var nextmouseBoosterCost = Math.floor(10 * Math.pow(1.1,mouseBooster));
     $('#score').text(calcAndSaveScore(bits));
     $('#cursors').text('Cursors: '+cursors);
-    $('#gainClicks').text('Gain Clicks: '+gainClicks);
-    $('#gainClicksCost').text('Gain Clicks Price: '+formatBytes(nextGainClicksCost/8));
+    $('#mouseBooster').text('Mouse Booster: '+mouseBooster);
+    $('#mouseBoosterCost').text('Mouse Booster Price: '+formatBytes(nextmouseBoosterCost/8));
     $('#cursorsCost').text('Cursor Price: '+formatBytes(nextCursorCost/8));
 });
 
