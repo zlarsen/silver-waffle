@@ -76,7 +76,7 @@ function buyKeyboard(){
     if(bits >= keyboardCost){                                   //checks that the player can afford the keyboard
         keyboards = keyboards + 1;                                   //increases number of keyboards
         bits = bits - keyboardCost;                          //removes the bits spent
-        $('#keyboards').text('keyboards: '+keyboards);//updates the number of keyboards for the user
+        $('#keyboards').text('Keyboards: '+keyboards);//updates the number of keyboards for the user
         $('#score').text(calcAndSaveScore(bits));   //updates the number of cookies for the user
     };
     var nextCost = Math.floor(80 * Math.pow(1.4,keyboards));       //works out the cost of the next keyboard
